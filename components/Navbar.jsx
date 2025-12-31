@@ -35,15 +35,6 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Header Background */}
-      <div className="fixed top-0 right-0 w-11/12 -z-10 -translate-y-[80%]">
-        <Image
-          src={assets.header_bg_color}
-          alt="header background"
-          className="w-full"
-          priority
-        />
-      </div>
 
       {/* Navbar */}
       <nav
@@ -54,7 +45,11 @@ const Navbar = () => {
       >
         {/* Logo */}
         <a href="#top">
-          <Image alt="logo" src={assets.logo} className="w-28 cursor-pointer mr-14" />
+        <h1 className="text-3xl font-bold flex items-center gap-1">
+          Kajanthan
+          <span className="w-2 h-2 mt-3.5 bg-rose-400 rounded-full border border-red-800"></span>
+        </h1>
+
         </a>
 
         {/* Desktop Menu */}
