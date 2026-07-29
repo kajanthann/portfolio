@@ -215,8 +215,8 @@ export default function About() {
     <section
       id="About"
       className="
-        pt-20
-        pb-16
+        pt-10
+        pb-15
         scroll-mt-16
       "
     >
@@ -249,35 +249,42 @@ export default function About() {
 
       <p
         className="
-          mt-5
-          max-w-xl
-          text-base
-          leading-relaxed
-          text-slate-800
-        "
+    mt-4
+    max-w-2xl
+    text-base
+    leading-relaxed
+    text-slate-800
+  "
       >
-        I am a Software Engineering undergraduate passionate about{" "}
-        <span className="font-medium text-green-600">
+        I am a Final Year Software Engineering undergraduate passionate about{" "}
+        <span className="font-medium text-green-800">
           Embedded Systems, Firmware Engineering, IoT, Artificial Intelligence,
           and Robotics.
         </span>{" "}
-        I build intelligent real-world systems by combining microcontrollers,
-        sensors, edge computing, cloud platforms, and machine learning.
+        I enjoy building intelligent real-world solutions by combining
+        microcontrollers, sensors, software development, and machine learning.
         <br />
         <br />
-        Currently, I am developing my final-year project,{" "}
-        <span className="font-medium text-green-600">
+        My experience includes developing{" "}
+        <span className="font-medium text-green-800">
+          IoT platforms, embedded applications, AI-based systems, and full-stack
+          web solutions
+        </span>{" "}
+        using technologies such as ESP32, STM32, Raspberry Pi, TensorFlow, MQTT,
+        React, Node.js, and cloud platforms. Currently, I am working on my
+        final-year project,{" "}
+        <span className="font-medium text-green-800">
           Smart Accident Detection & Real-Time Alert System
         </span>
-        , using ESP32, Raspberry Pi, sensor fusion, GPS tracking, computer
-        vision, and AI-based accident analysis.
+        , which uses sensor fusion, GPS tracking, computer vision, and AI
+        techniques to develop a smart safety solution.
         <br />
-        <br />
-        My interests include building{" "}
-        <span className="font-medium text-green-600">
-          autonomous robots, IoT platforms, embedded AI solutions, and firmware
-          applications.
+        <br />I am interested in creating{" "}
+        <span className="font-medium text-green-800">
+          embedded AI systems, autonomous robots, IoT applications, and scalable
+          software solutions
         </span>
+        that solve practical problems.
       </p>
 
       {/* Skills */}

@@ -1,15 +1,11 @@
 import React from "react";
 import { profileImage } from "../assets/asset";
+
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
+
 import { MdEmail } from "react-icons/md";
 
-const NAV_ITEMS = [
-  "About",
-  "Experience",
-  "Education",
-  "Projects",
-  "Contact",
-];
+const NAV_ITEMS = ["About", "Experience", "Education", "Projects", "Contact"];
 
 const SOCIAL_LINKS = [
   {
@@ -29,10 +25,140 @@ const SOCIAL_LINKS = [
   },
 ];
 
+function ProfileCard() {
+  return (
+    <div
+      className="
+        flex
+        flex-col
+        items-center
+        w-full
+        px-8
+        pt-10
+        pb-5
+      "
+    >
+      {/* Profile Image + Social */}
+      <div className="relative">
+        <div
+          className="
+            w-46
+            h-46
+            lg:w-52
+            lg:h-52
+            overflow-hidden
+            rounded-2xl
+            border-2
+            border-green-500/30
+            bg-green-50
+          "
+        >
+          <img
+            src={profileImage}
+            alt="Arulaiah Kajanthan"
+            className="
+              w-full
+              h-full
+              object-cover
+            "
+          />
+        </div>
+
+        {/* Social Icons */}
+
+        <div
+          className="
+            absolute
+            top-1/2
+            -right-10
+            -translate-y-1/2
+            flex
+            flex-col
+            gap-2
+          "
+        >
+          {SOCIAL_LINKS.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="
+                flex
+                items-center
+                justify-center
+                w-8
+                h-8
+                rounded-xl
+                border
+                border-green-500/20
+                bg-white
+                text-green-600
+                shadow-sm
+                transition
+                hover:scale-110
+                hover:border-green-500
+                hover:bg-green-50
+              "
+            >
+              {item.icon}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* Name */}
+
+      <h1
+        className="
+          mt-6
+          text-2xl
+          lg:text-3xl
+          font-bold
+          font-mono
+          text-slate-900
+          text-center
+        "
+      >
+        Arulaiah Kajanthan
+      </h1>
+
+      {/* Role */}
+
+      <p
+        className="
+          mt-2
+          text-xs
+          font-mono
+          text-green-700
+          text-center
+        "
+      >
+        Embedded Systems | IoT | AI/ML | MERN Stack
+      </p>
+
+      {/* Location */}
+
+      <p
+        className="
+          mt-1
+          text-xs
+          font-mono
+          text-slate-500
+          text-center
+        "
+      >
+        Jaffna, Sri Lanka | 0742937703
+      </p>
+    </div>
+  );
+}
+
 function Sidebar({ active, onNav }) {
   return (
     <>
       {/* Desktop Sidebar */}
+
       <aside
         className="
           hidden
@@ -46,134 +172,19 @@ function Sidebar({ active, onNav }) {
           border-slate-200
         "
       >
-        <div
-          className="
-            flex
-            flex-col
-            items-center
-            w-full
-            px-8
-            py-10
-          "
-        >
-          {/* Profile Image + Social Icons */}
-          <div className="relative">
-            <div
-              className="
-                w-52
-                h-52
-                overflow-hidden
-                rounded-2xl
-                border-2
-                border-green-500/30
-                bg-gradient-to-br
-                from-green-100
-                to-emerald-50
-              "
-            >
-              <img
-                src={profileImage}
-                alt="Arulaiah Kajanthan"
-                className="
-                  w-full
-                  h-full
-                  object-cover
-                "
-              />
-            </div>
-
-            {/* Social Icons */}
-            <div
-              className="
-                absolute
-                top-1/2
-                -right-10
-                -translate-y-1/2
-                flex
-                flex-col
-                gap-2
-              "
-            >
-              {SOCIAL_LINKS.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={item.label}
-                  className="
-                    flex
-                    items-center
-                    justify-center
-                    w-8
-                    h-8
-                    rounded-xl
-                    border
-                    border-green-500/20
-                    bg-white
-                    text-green-600
-                    shadow-sm
-                    transition-all
-                    duration-300
-                    hover:scale-110
-                    hover:border-green-500
-                    hover:bg-green-50
-                    hover:shadow-[0_0_15px_rgba(34,197,94,0.25)]
-                  "
-                >
-                  {item.icon}
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Name */}
-          <h1
-            className="
-              mt-6
-              text-3xl
-              font-bold
-              font-mono
-              text-slate-900
-            "
-          >
-            Arulaiah Kajanthan
-          </h1>
-
-          {/* Role */}
-          <p
-            className="
-              mt-2
-              text-xs
-              font-mono
-              text-green-700
-            "
-          >
-            Embedded Systems | IoT | AI/ML | MERN Stack
-          </p>
-
-          {/* Location */}
-          <p
-            className="
-              mt-1
-              text-xs
-              font-mono
-              text-slate-500
-            "
-          >
-            Jaffna, Sri Lanka | 0742937703
-          </p>
+        <div className="w-full">
+          <ProfileCard />
 
           {/* Navigation */}
+
           <nav
             className="
-              mt-10
-              w-full
+              px-8
+              mt-2
               text-sm
               font-mono
             "
           >
-
             <div className="text-slate-500">
               <p>{"{"}</p>
 
@@ -196,9 +207,7 @@ function Sidebar({ active, onNav }) {
                       onClick={() => onNav(item)}
                       className={`
                         cursor-pointer
-                        font-mono
-                        transition-colors
-                        duration-200
+                        transition
                         ${
                           active === item
                             ? "text-green-600"
@@ -209,90 +218,46 @@ function Sidebar({ active, onNav }) {
                       "{item}"
                     </button>
 
-                    <span className="mx-2 text-slate-400">
+                    <span
+                      className="
+                        mx-2
+                        text-slate-400
+                      "
+                    >
                       :
                     </span>
 
                     <span
                       className={
-                        active === item
-                          ? "text-green-600"
-                          : "text-slate-400"
+                        active === item ? "text-green-600" : "text-slate-400"
                       }
                     >
                       {active === item ? "true" : "false"}
                     </span>
 
-                    <span className="text-slate-400">
-                      ,
-                    </span>
+                    <span className="text-slate-400">,</span>
                   </div>
                 ))}
               </div>
 
-              <p className="mt-2">
-                {"}"}
-              </p>
+              <p className="mt-2">{"}"}</p>
             </div>
           </nav>
         </div>
       </aside>
 
-      {/* Mobile Header */}
-      <header
+      {/* Mobile + Tablet Profile */}
+
+      <div
         className="
-          fixed
-          left-0
-          right-0
-          top-0
-          z-50
-          flex
-          h-14
-          items-center
-          justify-between
+          lg:hidden
+          w-full
           border-b
           border-slate-200
-          bg-white/90
-          px-4
-          backdrop-blur-md
-          lg:hidden
         "
       >
-        <span
-          className="
-            font-mono
-            font-bold
-            text-green-600
-          "
-        >
-          kajanthan.dev
-        </span>
-
-        <div className="flex gap-1">
-          {NAV_ITEMS.map((item) => (
-            <button
-              key={item}
-              onClick={() => onNav(item)}
-              className={`
-                cursor-pointer
-                rounded
-                px-2
-                py-1
-                text-[11px]
-                font-mono
-                transition
-                ${
-                  active === item
-                    ? "bg-green-100 text-green-600"
-                    : "text-slate-500 hover:text-green-600"
-                }
-              `}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
-      </header>
+        <ProfileCard />
+      </div>
     </>
   );
 }
