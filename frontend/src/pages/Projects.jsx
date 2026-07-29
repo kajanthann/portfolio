@@ -103,7 +103,6 @@ export default function Projects() {
               rounded-xl
               border
               border-slate-200
-              bg-white
               shadow-sm
               transition-all
               duration-300

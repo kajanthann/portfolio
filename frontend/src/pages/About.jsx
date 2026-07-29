@@ -308,11 +308,10 @@ export default function About() {
                 group
                 flex
                 items-center
-                gap-3
+                gap-1
                 rounded
                 border
                 border-slate-200
-                bg-white
                 p-1
                 shadow-sm
                 transition
@@ -322,7 +321,6 @@ export default function About() {
             >
               <Icon
                 className={`
-                  text-2xl
                   ${skill.color}
                 `}
               />
