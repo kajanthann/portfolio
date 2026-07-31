@@ -6,7 +6,11 @@ import SectionTitle from "../components/SectionTitle";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:5000";
+
+const PROJECTS_API =
+  `${API_URL}/api/projects/all-projects`;
 
 
 export default function Projects() {
@@ -21,9 +25,7 @@ export default function Projects() {
 
       try {
 
-        const res = await fetch(
-          `${API_URL}api/projects/all-projects`
-        );
+        const res = await fetch(PROJECTS_API);
 
         const data = await res.json();
 
