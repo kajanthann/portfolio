@@ -295,7 +295,7 @@ export default function About() {
           mb-10
           flex
           flex-wrap
-          gap-3
+          gap-2
         "
       >
         {SKILLS.map((skill) => {
