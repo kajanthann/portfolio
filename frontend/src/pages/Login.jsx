@@ -2,8 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/";
-const PROJECTS_URL = `${API_URL}api/projects`;
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const PROJECTS_URL = `${API_URL}/api/projects`;
+
 
 const Login = () => {
   const [email, setEmail] = useState("");

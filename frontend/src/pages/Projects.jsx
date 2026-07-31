@@ -5,56 +5,46 @@ import SectionTitle from "../components/SectionTitle";
 
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
-const API_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:5000";
+const PROJECTS_API = `${API_URL}/api/projects/all-projects`;
 
-const PROJECTS_API =
-  `${API_URL}/api/projects/all-projects`;
-
+const DESC_LIMIT = 150;
 
 export default function Projects() {
-
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [expandedIds, setExpandedIds] = useState(new Set());
 
   useEffect(() => {
-
     const fetchProjects = async () => {
-
       try {
-
         const res = await fetch(PROJECTS_API);
-
         const data = await res.json();
-
         setProjects(data);
-
-      } catch(error){
-
-        console.error(
-          "Failed to fetch projects:",
-          error
-        );
-
+      } catch (error) {
+        console.error("Failed to fetch projects:", error);
       } finally {
-
         setLoading(false);
-
       }
-
     };
 
-
     fetchProjects();
-
   }, []);
 
-
+  const toggleExpanded = (id) => {
+    setExpandedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  };
 
   return (
-
     <section
       id="Projects"
       className="
@@ -64,41 +54,40 @@ export default function Projects() {
         border-slate-200
       "
     >
-
-      <SectionTitle>
-        Projects
-      </SectionTitle>
-
+      <SectionTitle>Projects</SectionTitle>
 
       {loading ? (
-
-        <p className="
+        <p
+          className="
           text-sm
           font-mono
           text-slate-400
-        ">
+        "
+        >
           Loading projects...
         </p>
-
-
       ) : (
-
-      <div
-        className="
+        <div
+          className="
           grid
           grid-cols-1
           sm:grid-cols-2
           lg:grid-cols-3
           gap-5
         "
-      >
+        >
+          {projects.map((project) => {
+            const isExpanded = expandedIds.has(project._id);
+            const isLong = project.desc.length > DESC_LIMIT;
+            const displayDesc =
+              isLong && !isExpanded
+                ? `${project.desc.slice(0, DESC_LIMIT).trimEnd()}...`
+                : project.desc;
 
-        {projects.map((project)=>(
-
-
-          <div
-            key={project._id}
-            className="
+            return (
+              <div
+                key={project._id}
+                className="
               overflow-hidden
               rounded-xl
               border
@@ -110,23 +99,19 @@ export default function Projects() {
               hover:border-green-500/40
               hover:shadow-lg
             "
-          >
-
-
-            {/* Image */}
-
-            <div
-              className="
+              >
+                {/* Image */}
+                <div
+                  className="
                 relative
                 h-40
                 overflow-hidden
               "
-            >
-
-              <img
-                src={project.image}
-                alt={project.title}
-                className="
+                >
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="
                   h-full
                   w-full
                   object-cover
@@ -134,22 +119,19 @@ export default function Projects() {
                   duration-500
                   hover:scale-105
                 "
-              />
+                  />
 
-
-              <div
-                className="
+                  <div
+                    className="
                   absolute
                   inset-0
                   bg-black/20
                 "
-              />
+                  />
 
-
-              {/* Status */}
-
-              <span
-                className={`
+                  {/* Status */}
+                  <span
+                    className={`
                   absolute
                   right-3
                   top-3
@@ -159,46 +141,34 @@ export default function Projects() {
                   py-1
                   text-[10px]
                   font-mono
-
                   ${
                     project.status === "Completed"
-                    ?
-                    "bg-green-100 text-green-700 border-green-500/30"
-                    :
-                    project.status === "In Progress"
-                    ?
-                    "bg-yellow-100 text-yellow-700 border-yellow-500/30"
-                    :
-                    "bg-blue-100 text-blue-700 border-blue-500/30"
+                      ? "bg-green-100 text-green-700 border-green-500/30"
+                      : project.status === "In Progress"
+                        ? "bg-yellow-100 text-yellow-700 border-yellow-500/30"
+                        : "bg-blue-100 text-blue-700 border-blue-500/30"
                   }
                 `}
-              >
+                  >
+                    {project.status}
+                  </span>
 
-                {project.status}
-
-              </span>
-
-
-
-              {/* Links */}
-
-              <div
-                className="
+                  {/* Links */}
+                  <div
+                    className="
                   absolute
                   bottom-3
                   left-3
                   flex
                   gap-2
                 "
-              >
-
-                {project.github && (
-
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="
+                  >
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="
                       flex
                       h-5
                       w-5
@@ -212,24 +182,18 @@ export default function Projects() {
                       hover:bg-green-600
                       hover:text-white
                     "
-                    title="Github"
-                  >
+                        title="Github"
+                      >
+                        <FaGithub size={15} />
+                      </a>
+                    )}
 
-                    <FaGithub size={15}/>
-
-                  </a>
-
-                )}
-
-
-
-                {project.demo && (
-
-                  <a
-                    href={project.demo}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="
+                    {project.demo && (
+                      <a
+                        href={project.demo}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="
                       flex
                       h-5
                       w-5
@@ -243,62 +207,63 @@ export default function Projects() {
                       hover:bg-green-600
                       hover:text-white
                     "
-                    title="Live Demo"
-                  >
+                        title="Live Demo"
+                      >
+                        <FaExternalLinkAlt size={12} />
+                      </a>
+                    )}
+                  </div>
+                </div>
 
-                    <FaExternalLinkAlt size={12}/>
-
-                  </a>
-
-                )}
-
-              </div>
-
-            </div>
-
-
-
-
-            {/* Content */}
-
-            <div
-              className="
+                {/* Content */}
+                <div
+                  className="
                 p-4
               "
-            >
-
-              <h3
-                className="
+                >
+                  <h3
+                    className="
                   mb-2
                   text-sm
                   font-semibold
                   text-slate-900
                 "
-              >
+                  >
+                    {project.title}
+                  </h3>
 
-                {project.title}
-
-              </h3>
-
-
-
-              <p
-                className="
-                  mb-3
+                  <p
+                    className="
                   text-xs
                   leading-relaxed
                   text-slate-600
                 "
-              >
+                  >
+                    {displayDesc}
+                  </p>
 
-                {project.desc}
+                  {isLong && (
+                    <button
+                      type="button"
+                      onClick={() => toggleExpanded(project._id)}
+                      className="
+                    mb-1
+                    text-xs
+                    font-mono
+                    text-gray-600
+                    transition
+                    hover:text-green-700
+                    cursor-pointer
+                  "
+                    >
+                      {isExpanded ? "Read less" : "Read more"}
+                    </button>
+                  )}
 
-              </p>
+                  {!isLong && <div className="mb-3" />}
 
-
-
-              <div
-                className="
+                  <div
+                    className="
                   flex
                   flex-wrap
                   gap-1
@@ -306,34 +271,17 @@ export default function Projects() {
                   pt-2
                   border-slate-200
                 "
-              >
-
-                {project.tags.map((tag,index)=>(
-
-                  <Tag key={index}>
-                    {tag}
-                  </Tag>
-
-                ))}
-
+                  >
+                    {project.tags.map((tag, index) => (
+                      <Tag key={index}>{tag}</Tag>
+                    ))}
+                  </div>
+                </div>
               </div>
-
-
-            </div>
-
-
-          </div>
-
-
-        ))}
-
-
-      </div>
-
+            );
+          })}
+        </div>
       )}
-
     </section>
-
   );
-
 }
