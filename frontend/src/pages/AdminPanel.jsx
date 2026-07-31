@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { X, ExternalLink, Upload, Pencil, Trash2 } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
+import StorageUsage from "../components/StorageUsage";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 const PROJECTS_URL = `${API_URL}/api/projects`;
@@ -223,6 +224,8 @@ const AdminPanel = () => {
             {error}
           </div>
         )}
+
+        <StorageUsage token={token} />
 
         {/* Project List */}
         <div className="mb-6 flex items-center justify-between">

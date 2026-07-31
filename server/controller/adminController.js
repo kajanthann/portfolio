@@ -1,5 +1,5 @@
 import ProjectModel from "../models/project.js";
-
+import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 
 export const login = async (req, res) => {
@@ -139,6 +139,33 @@ export const deleteProject = async (req, res) => {
     console.error("DELETE PROJECT ERROR:", error);
     res.status(500).json({
       message: "Failed to delete project",
+      error: error.message,
+    });
+  }
+};
+
+export const getDbStats = async (req, res) => {
+  try {
+    const db = mongoose.connection.db;
+    const stats = await db.stats();
+
+    // Atlas free tier (M0) limit is 512MB — adjust if you're on a paid tier
+    const limitBytes = 512 * 1024 * 1024;
+
+    res.status(200).json({
+      dataSize: stats.dataSize,
+      storageSize: stats.storageSize,
+      indexSize: stats.indexSize,
+      totalSize: stats.dataSize + stats.indexSize,
+      collections: stats.collections,
+      objects: stats.objects,
+      limitBytes,
+      usedPercent: (((stats.dataSize + stats.indexSize) / limitBytes) * 100).toFixed(2),
+    });
+  } catch (error) {
+    console.error("GET DB STATS ERROR:", error);
+    res.status(500).json({
+      message: "Failed to fetch database stats",
       error: error.message,
     });
   }
