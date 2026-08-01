@@ -9,9 +9,9 @@ export default function Tag({ children }) {
         border 
         border-green-400/25 
         rounded 
-        px-2 
+        px-1.5
         py-0.5 
-        text-[10px] 
+        text-[9px] 
         font-mono 
         tracking-wide
       "

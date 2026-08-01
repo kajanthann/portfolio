@@ -98,9 +98,34 @@ export const createProject = async (req, res) => {
 
 export const updateProject = async (req, res) => {
   try {
+    const updateData = {
+      title: req.body.title,
+      desc: req.body.desc,
+      status: req.body.status,
+      github: req.body.github || "",
+      demo: req.body.demo || "",
+    };
+
+    // Only parse & update tags if it was sent
+    if (req.body.tags) {
+      try {
+        updateData.tags = JSON.parse(req.body.tags);
+      } catch (parseErr) {
+        return res.status(400).json({
+          message: "Invalid tags format, expected a JSON array string",
+        });
+      }
+    }
+
+    // Only update image fields if a new file was uploaded
+    if (req.file) {
+      updateData.image = req.file.path;
+      updateData.imagePublicId = req.file.filename;
+    }
+
     const project = await ProjectModel.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      updateData,
       {
         new: true,
         runValidators: true,

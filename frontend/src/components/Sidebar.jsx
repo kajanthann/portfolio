@@ -11,12 +11,12 @@ const SOCIAL_LINKS = [
   {
     label: "GitHub",
     icon: <FaGithub size={15} />,
-    href: "https://github.com/kajanthan",
+    href: "https://github.com/kajanthann",
   },
   {
     label: "LinkedIn",
     icon: <FaLinkedinIn size={15} />,
-    href: "https://linkedin.com/in/kajanthan",
+    href: "https://www.linkedin.com/in/a-kajanthan/",
   },
   {
     label: "Email",

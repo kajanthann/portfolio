@@ -88,6 +88,9 @@ export default function Projects() {
               <div
                 key={project._id}
                 className="
+              flex
+              flex-col
+              h-full
               overflow-hidden
               rounded-xl
               border
@@ -116,6 +119,8 @@ export default function Projects() {
                   w-full
                   object-cover
                   transition
+                  border-b
+                  border-slate-400
                   duration-500
                   hover:scale-105
                 "
@@ -125,7 +130,6 @@ export default function Projects() {
                     className="
                   absolute
                   inset-0
-                  bg-black/20
                 "
                   />
 
@@ -175,7 +179,7 @@ export default function Projects() {
                       items-center
                       justify-center
                       rounded
-                      bg-white/90
+                      bg-green-100/90
                       text-slate-700
                       shadow
                       transition
@@ -200,7 +204,7 @@ export default function Projects() {
                       items-center
                       justify-center
                       rounded
-                      bg-white/90
+                      bg-green-100/90
                       text-slate-700
                       shadow
                       transition
@@ -218,13 +222,16 @@ export default function Projects() {
                 {/* Content */}
                 <div
                   className="
-                p-4
+                flex
+                flex-1
+                flex-col
+                p-2
               "
                 >
                   <h3
                     className="
                   mb-2
-                  text-sm
+                  text-xs
                   font-semibold
                   text-slate-900
                 "
@@ -248,9 +255,11 @@ export default function Projects() {
                       onClick={() => toggleExpanded(project._id)}
                       className="
                     mb-1
+                    self-start
+                    mt-1
                     text-xs
                     font-mono
-                    text-gray-600
+                    text-green-600
                     transition
                     hover:text-green-700
                     cursor-pointer
@@ -264,6 +273,7 @@ export default function Projects() {
 
                   <div
                     className="
+                  mt-auto
                   flex
                   flex-wrap
                   gap-1

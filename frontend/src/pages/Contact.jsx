@@ -4,8 +4,7 @@ import SectionTitle from "../components/SectionTitle";
 import Card from "../components/Card";
 
 import { FaGithub, FaLinkedin, FaPhone } from "react-icons/fa";
-
-import { MdEmail } from "react-icons/md";
+import { MdEmail, MdLocationOn } from "react-icons/md";
 
 export default function Contact() {
   return (
@@ -24,12 +23,16 @@ export default function Contact() {
       <Card
         className="
           w-full
-          max-w-2xl
+          max-w-xl
           border
           border-slate-200/70
           shadow-sm
         "
       >
+        {/* ============================================= */}
+        {/* FORM - commented out for now, backend pending */}
+        {/* ============================================= */}
+        {/*
         <form
           className="
             flex
@@ -37,8 +40,6 @@ export default function Contact() {
             gap-4
           "
         >
-          {/* Name */}
-
           <div>
             <label
               className="
@@ -75,8 +76,6 @@ export default function Contact() {
             />
           </div>
 
-          {/* Email */}
-
           <div>
             <label
               className="
@@ -112,8 +111,6 @@ export default function Contact() {
               "
             />
           </div>
-
-          {/* Message */}
 
           <div>
             <label
@@ -152,8 +149,6 @@ export default function Contact() {
             />
           </div>
 
-          {/* Footer */}
-
           <div
             className="
               mt-2
@@ -169,8 +164,6 @@ export default function Contact() {
               sm:justify-between
             "
           >
-            {/* Social Links */}
-
             <div
               className="
                 flex
@@ -180,9 +173,7 @@ export default function Contact() {
                 gap-y-3
               "
             >
-              {/* Email */}
-
-              <a
+              
                 href="mailto:arulkajanthan904@email.com"
                 className="
                   flex
@@ -195,12 +186,9 @@ export default function Contact() {
                 "
               >
                 <MdEmail className="text-green-600" />
-           
               </a>
 
-              {/* Phone */}
-
-              <a
+              
                 href="tel:+94742937703"
                 className="
                   flex
@@ -213,12 +201,9 @@ export default function Contact() {
                 "
               >
                 <FaPhone className="text-green-600" />
-        
               </a>
 
-              {/* LinkedIn */}
-
-              <a
+              
                 href="https://www.linkedin.com/in/a-kajanthan/"
                 target="_blank"
                 rel="noreferrer"
@@ -233,12 +218,9 @@ export default function Contact() {
                 "
               >
                 <FaLinkedin className="text-green-600" />
-                
               </a>
 
-              {/* Github */}
-
-              <a
+              
                 href="https://github.com/kajanthann"
                 target="_blank"
                 rel="noreferrer"
@@ -253,11 +235,8 @@ export default function Contact() {
                 "
               >
                 <FaGithub className="text-green-600" />
-       
               </a>
             </div>
-
-            {/* Send Button */}
 
             <button
               type="submit"
@@ -283,6 +262,71 @@ export default function Contact() {
             </button>
           </div>
         </form>
+        */}
+
+        {/* ============================================= */}
+        {/* SIMPLE CONTACT INFO - replace with form above  */}
+        {/* once backend is ready                          */}
+        {/* ============================================= */}
+        <div
+          className="
+            flex
+            flex-col
+            gap-4
+          "
+        >
+          <div className="flex items-center gap-3 text-sm text-slate-700">
+            <MdEmail className="text-lg text-green-600" />
+            arulkajanthan904@email.com
+          </div>
+
+          <div className="flex items-center gap-3 text-sm text-slate-700">
+            <FaPhone className="text-base text-green-600" />
+            +94 74 293 7703
+          </div>
+
+          <div className="flex items-center gap-3 text-sm text-slate-700">
+            <MdLocationOn className="text-lg text-green-600" />
+            Colombo, Sri Lanka
+          </div>
+
+          <div
+            className="
+              mt-2
+              flex
+              items-center
+              gap-5
+            "
+          >
+            <a
+              href="https://www.linkedin.com/in/a-kajanthan/"
+              target="_blank"
+              rel="noreferrer"
+              className="
+                text-slate-500
+                transition
+                hover:text-green-600
+              "
+              title="LinkedIn"
+            >
+              <FaLinkedin size={20} />
+            </a>
+
+            <a
+              href="https://github.com/kajanthann"
+              target="_blank"
+              rel="noreferrer"
+              className="
+                text-slate-500
+                transition
+                hover:text-green-600
+              "
+              title="GitHub"
+            >
+              <FaGithub size={20} />
+            </a>
+          </div>
+        </div>
       </Card>
     </section>
   );

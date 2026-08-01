@@ -195,20 +195,6 @@ const SKILLS = [
   },
 ];
 
-const STATS = [
-  {
-    value: "10+",
-    label: "Projects Built",
-  },
-  {
-    value: "3+",
-    label: "Years Coding",
-  },
-  {
-    value: "2026",
-    label: "Final Year",
-  },
-];
 
 export default function About() {
   return (
@@ -337,54 +323,6 @@ export default function About() {
             </div>
           );
         })}
-      </div>
-
-      {/* Stats */}
-
-      <div
-        className="
-          grid
-          grid-cols-3
-          gap-3
-        "
-      >
-        {STATS.map((item) => (
-          <div
-            key={item.label}
-            className="
-              rounded-xl
-              border
-              border-green-600/20
-              bg-white
-              p-4
-              text-center
-              shadow-sm
-              hover:shadow-md
-              transition
-            "
-          >
-            <p
-              className="
-                font-mono
-                text-2xl
-                font-bold
-                text-green-600
-              "
-            >
-              {item.value}
-            </p>
-
-            <p
-              className="
-                mt-1
-                text-xs
-                text-slate-500
-              "
-            >
-              {item.label}
-            </p>
-          </div>
-        ))}
       </div>
     </section>
   );
