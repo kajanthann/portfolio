@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { X, ExternalLink, Upload, Pencil, Trash2 } from "lucide-react";
+import { X, ExternalLink, Upload, Pencil, Trash2, Sparkles } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import StorageUsage from "../components/StorageUsage";
 
@@ -10,7 +10,7 @@ const PROJECTS_URL = `${API_URL}/api/projects`;
 const emptyForm = {
   title: "",
   desc: "",
-  tags: "",
+  tags: [], // 👈 now an array instead of a comma string
   status: "Completed",
   github: "",
   demo: "",
@@ -30,9 +30,15 @@ const AdminPanel = () => {
   const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false); // 👈 tracks add/update in progress
+  const [isAnalyzing, setIsAnalyzing] = useState(false); // 👈 tracks AI analyze in progress
   const [error, setError] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState(null);
+
+  // Tag input helpers
+  const [tagInput, setTagInput] = useState("");
+  const [editingTagIndex, setEditingTagIndex] = useState(null);
+  const [editingTagValue, setEditingTagValue] = useState("");
 
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -82,6 +88,9 @@ const AdminPanel = () => {
     setImageFile(null);
     setImagePreview(null);
     setEditingId(null);
+    setTagInput("");
+    setEditingTagIndex(null);
+    setEditingTagValue("");
   };
 
   const openCreateModal = () => {
@@ -95,6 +104,106 @@ const AdminPanel = () => {
     resetForm();
   };
 
+  // ---------- Tag chip helpers ----------
+  const addTag = (rawValue) => {
+    const value = rawValue.trim();
+    if (!value) return;
+    // avoid exact duplicates (case-insensitive)
+    setForm((prev) => {
+      const exists = prev.tags.some(
+        (t) => t.toLowerCase() === value.toLowerCase(),
+      );
+      if (exists) return prev;
+      return { ...prev, tags: [...prev.tags, value] };
+    });
+    setTagInput("");
+  };
+
+  const handleTagInputKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === ",") {
+      e.preventDefault();
+      addTag(tagInput);
+    } else if (e.key === "Backspace" && tagInput === "" && form.tags.length) {
+      // quick-remove last tag when backspacing on empty input
+      setForm((prev) => ({ ...prev, tags: prev.tags.slice(0, -1) }));
+    }
+  };
+
+  const removeTag = (index) => {
+    setForm((prev) => ({
+      ...prev,
+      tags: prev.tags.filter((_, i) => i !== index),
+    }));
+  };
+
+  const startEditTag = (index) => {
+    setEditingTagIndex(index);
+    setEditingTagValue(form.tags[index]);
+  };
+
+  const commitEditTag = () => {
+    const value = editingTagValue.trim();
+    setForm((prev) => {
+      const nextTags = [...prev.tags];
+      if (!value) {
+        // empty edit -> remove the tag
+        nextTags.splice(editingTagIndex, 1);
+      } else {
+        nextTags[editingTagIndex] = value;
+      }
+      return { ...prev, tags: nextTags };
+    });
+    setEditingTagIndex(null);
+    setEditingTagValue("");
+  };
+
+  const handleEditTagKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      commitEditTag();
+    } else if (e.key === "Escape") {
+      setEditingTagIndex(null);
+      setEditingTagValue("");
+    }
+  };
+  // ---------------------------------------
+
+  // ---------- AI Analyze GitHub ----------
+  const handleAnalyzeGithub = async () => {
+    if (!form.github) {
+      setError("Please enter a GitHub URL first.");
+      return;
+    }
+
+    setError("");
+    setIsAnalyzing(true);
+
+    try {
+      const res = await fetch(`${PROJECTS_URL}/analyze-github`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...authHeader,
+        },
+        body: JSON.stringify({ githubUrl: form.github }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "AI analysis failed");
+
+      setForm((prev) => ({
+        ...prev,
+        desc: data.desc || prev.desc,
+        tags: Array.isArray(data.tags) && data.tags.length ? data.tags : prev.tags,
+      }));
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+  // ---------------------------------------
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -104,15 +213,15 @@ const AdminPanel = () => {
       return;
     }
 
-    const tagsArray = form.tags
-      .split(",")
-      .map((t) => t.trim())
-      .filter(Boolean);
+    if (form.tags.length === 0) {
+      setError("Please add at least one tag.");
+      return;
+    }
 
     const formData = new FormData();
     formData.append("title", form.title);
     formData.append("desc", form.desc);
-    formData.append("tags", JSON.stringify(tagsArray));
+    formData.append("tags", JSON.stringify(form.tags));
     formData.append("status", form.status);
     formData.append("github", form.github || "");
     formData.append("demo", form.demo || "");
@@ -149,7 +258,7 @@ const AdminPanel = () => {
     setForm({
       title: project.title,
       desc: project.desc,
-      tags: project.tags.join(", "),
+      tags: Array.isArray(project.tags) ? [...project.tags] : [],
       status: project.status,
       github: project.github || "",
       demo: project.demo || "",
@@ -513,14 +622,44 @@ const AdminPanel = () => {
 
                 <div>
                   <label className={labelClass}>GitHub URL</label>
-                  <input
-                    type="text"
-                    name="github"
-                    value={form.github}
-                    onChange={handleChange}
-                    placeholder="Optional"
-                    className={inputClass}
-                  />
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      name="github"
+                      value={form.github}
+                      onChange={handleChange}
+                      placeholder="Optional"
+                      className={inputClass}
+                    />
+                    <button
+                      type="button"
+                      onClick={handleAnalyzeGithub}
+                      disabled={isAnalyzing || !form.github}
+                      title="Auto-generate description and tags with AI"
+                      className="
+                        flex
+                        shrink-0
+                        items-center
+                        justify-center
+                        rounded-lg
+                        border
+                        border-green-500
+                        px-3
+                        text-green-600
+                        transition
+                        hover:bg-green-50
+                        cursor-pointer
+                        disabled:cursor-not-allowed
+                        disabled:opacity-40
+                      "
+                    >
+                      {isAnalyzing ? (
+                        <span className="h-4 w-4 animate-spin rounded-full border-2 border-green-600 border-t-transparent" />
+                      ) : (
+                        <Sparkles size={16} />
+                      )}
+                    </button>
+                  </div>
                 </div>
 
                 <div>
@@ -535,16 +674,126 @@ const AdminPanel = () => {
                   />
                 </div>
 
+                {/* Tags - chip based, removable + editable + addable */}
                 <div className="md:col-span-2">
                   <label className={labelClass}>Tags</label>
-                  <input
-                    type="text"
-                    name="tags"
-                    value={form.tags}
-                    onChange={handleChange}
-                    placeholder="comma, separated, tags"
-                    className={inputClass}
-                  />
+
+                  <div
+                    className="
+                      flex
+                      w-full
+                      flex-wrap
+                      items-center
+                      gap-2
+                      rounded-lg
+                      border
+                      border-slate-200
+                      bg-transparent
+                      px-3
+                      py-2.5
+                      transition
+                      focus-within:border-green-500
+                      focus-within:ring-2
+                      focus-within:ring-green-500/20
+                    "
+                  >
+                    {form.tags.map((tag, index) =>
+                      editingTagIndex === index ? (
+                        <input
+                          key={index}
+                          type="text"
+                          autoFocus
+                          value={editingTagValue}
+                          onChange={(e) => setEditingTagValue(e.target.value)}
+                          onKeyDown={handleEditTagKeyDown}
+                          onBlur={commitEditTag}
+                          className="
+                            w-20
+                            rounded-md
+                            border
+                            border-green-400
+                            bg-white
+                            px-2
+                            py-1
+                            text-xs
+                            font-mono
+                            text-slate-900
+                            outline-none
+                          "
+                        />
+                      ) : (
+                        <span
+                          key={index}
+                          className="
+                            group
+                            flex
+                            items-center
+                            gap-1.5
+                            rounded-md
+                            border
+                            border-slate-200
+                            bg-slate-50
+                            py-1
+                            pl-2.5
+                            pr-1.5
+                            text-xs
+                            font-mono
+                            text-slate-600
+                          "
+                        >
+                          <button
+                            type="button"
+                            onClick={() => startEditTag(index)}
+                            title="Click to edit"
+                            className="cursor-text hover:text-green-700"
+                          >
+                            {tag}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => removeTag(index)}
+                            title="Remove tag"
+                            className="
+                              flex
+                              h-3.5
+                              w-3.5
+                              items-center
+                              justify-center
+                              rounded-full
+                              text-slate-400
+                              transition
+                              hover:bg-red-100
+                              hover:text-red-600
+                              cursor-pointer
+                            "
+                          >
+                            <X size={11} />
+                          </button>
+                        </span>
+                      ),
+                    )}
+
+                    <input
+                      type="text"
+                      value={tagInput}
+                      onChange={(e) => setTagInput(e.target.value)}
+                      onKeyDown={handleTagInputKeyDown}
+                      onBlur={() => tagInput && addTag(tagInput)}
+                      placeholder={form.tags.length ? "Add tag..." : "Type a tag and press Enter"}
+                      className="
+                        min-w-[100px]
+                        flex-1
+                        bg-transparent
+                        text-sm
+                        text-slate-900
+                        outline-none
+                        placeholder:text-slate-400
+                      "
+                    />
+                  </div>
+                  <p className="mt-1 text-[11px] font-mono text-slate-400">
+                    Press Enter or comma to add · click a tag to edit · × to remove
+                  </p>
                 </div>
               </div>
 
