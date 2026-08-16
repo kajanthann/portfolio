@@ -11,11 +11,14 @@ import {
 import authMiddleware from "../middleware/adminAuth.js";
 import upload from "../middleware/upload.js";
 import { getDbStats } from "../controller/adminController.js";
+import { analyzeGithubRepo } from "../controller/adminController.js";
 
 const postRouter = express.Router();
 
 postRouter.post("/login", login);
-postRouter.get("/db-stats", authMiddleware, getDbStats);   
+postRouter.get("/db-stats", authMiddleware, getDbStats); 
+
+postRouter.post("/analyze-github", authMiddleware, analyzeGithubRepo);
 
 postRouter.get("/all-projects", getProjects);
 postRouter.get("/:id", authMiddleware, getProjectById);
