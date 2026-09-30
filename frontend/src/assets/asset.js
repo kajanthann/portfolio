@@ -1,3 +1,3 @@
-import profileImage from './profile.jpeg';
+import profileImage from './img.jpeg';
 
 export { profileImage };
