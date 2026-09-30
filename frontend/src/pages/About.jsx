@@ -62,7 +62,6 @@ const SKILLS = [
     icon: SiTypescript,
     color: "text-blue-600",
   },
-
   {
     name: "STM32",
     icon: SiStmicroelectronics,
@@ -88,7 +87,6 @@ const SKILLS = [
     icon: SiPlatformio,
     color: "text-orange-500",
   },
-
   {
     name: "TensorFlow",
     icon: SiTensorflow,
@@ -104,13 +102,11 @@ const SKILLS = [
     icon: SiOpencv,
     color: "text-purple-600",
   },
-
   {
     name: "MQTT",
     icon: SiMqtt,
     color: "text-purple-500",
   },
-
   {
     name: "HTML",
     icon: FaHtml5,
@@ -141,7 +137,6 @@ const SKILLS = [
     icon: SiFlutter,
     color: "text-blue-400",
   },
-
   {
     name: "Node.js",
     icon: FaNodeJs,
@@ -167,7 +162,6 @@ const SKILLS = [
     icon: SiMongodb,
     color: "text-green-600",
   },
-
   {
     name: "VS Code",
     icon: VscCode,
@@ -194,7 +188,6 @@ const SKILLS = [
     color: "text-orange-500",
   },
 ];
-
 
 export default function About() {
   return (
@@ -233,48 +226,36 @@ export default function About() {
         Undergraduate
       </h2>
 
-      <p
-        className="
-    mt-4
-    max-w-2xl
-    text-base
-    leading-relaxed
-    text-slate-800
-  "
-      >
-        I am a Final Year Software Engineering undergraduate passionate about{" "}
-        <span className="font-medium text-green-800">
+      <p className="mt-5 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base sm:leading-7">
+        I am a final-year Software Engineering undergraduate at the University
+        of Sri Jayewardenepura with a strong interest in{" "}
+        <span className="font-medium text-slate-900">
           Embedded Systems, Firmware Engineering, IoT, Artificial Intelligence,
           and Robotics.
-        </span>{" "}
-        I enjoy building intelligent real-world solutions by combining
-        microcontrollers, sensors, software development, and machine learning.
-        <br />
-        <br />
-        My experience includes developing{" "}
-        <span className="font-medium text-green-800">
-          IoT platforms, embedded applications, AI-based systems, and full-stack
-          web solutions
+        </span>
+      </p>
+
+      <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base sm:leading-7">
+        I enjoy combining hardware and software to build practical, intelligent
+        systems. My experience includes developing{" "}
+        <span className="font-medium text-green-700">
+          embedded applications, IoT platforms, AI-based systems, computer
+          vision solutions, and full-stack applications
         </span>{" "}
         using technologies such as ESP32, STM32, Raspberry Pi, TensorFlow, MQTT,
-        React, Node.js, and cloud platforms. Currently, I am working on my
-        final-year project,{" "}
-        <span className="font-medium text-green-800">
-          Smart Accident Detection & Real-Time Alert System
-        </span>
-        , which uses sensor fusion, GPS tracking, computer vision, and AI
-        techniques to develop a smart safety solution.
-        <br />
-        <br />I am interested in creating{" "}
-        <span className="font-medium text-green-800">
+        React, Node.js, and cloud platforms.
+      </p>
+
+      <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base sm:leading-7">
+        I am particularly interested in building{" "}
+        <span className="font-medium text-slate-900">
           embedded AI systems, autonomous robots, IoT applications, and scalable
           software solutions
-        </span>
-        that solve practical problems.
+        </span>{" "}
+        that connect intelligent software with the physical world.
       </p>
 
       {/* Skills */}
-
       <div
         className="
           mt-8
@@ -305,11 +286,7 @@ export default function About() {
                 hover:shadow-md
               "
             >
-              <Icon
-                className={`
-                  ${skill.color}
-                `}
-              />
+              <Icon className={skill.color} />
 
               <span
                 className="

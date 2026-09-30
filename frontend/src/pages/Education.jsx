@@ -17,7 +17,6 @@ const EDUCATION = [
     location: "Jaffna, Sri Lanka",
     period: "Completed",
     desc: "Physical Science Stream: Mathematics, Physics, and Chemistry (A2B).",
-    badge: "Completed",
   },
 ];
 
@@ -115,11 +114,7 @@ export default function Education() {
                   </p>
                 </div>
 
-                <div
-                  className="
-                    text-right
-                  "
-                >
+                <div className="text-right">
                   <p
                     className="
                       font-mono
@@ -130,21 +125,23 @@ export default function Education() {
                     {edu.period}
                   </p>
 
-                  <span
-                    className="
-                      mt-1
-                      inline-block
-                      rounded
-                      bg-green-100
-                      px-2
-                      py-0.5
-                      font-mono
-                      text-[10px]
-                      text-green-700
-                    "
-                  >
-                    {edu.badge}
-                  </span>
+                  {edu.badge && (
+                    <span
+                      className="
+                        mt-1
+                        inline-block
+                        rounded
+                        bg-green-100
+                        px-2
+                        py-0.5
+                        font-mono
+                        text-[10px]
+                        text-green-700
+                      "
+                    >
+                      {edu.badge}
+                    </span>
+                  )}
                 </div>
               </div>
 

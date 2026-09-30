@@ -1,329 +1,77 @@
 import React from "react";
-
 import SectionTitle from "../components/SectionTitle";
 import Card from "../components/Card";
-
 import { FaGithub, FaLinkedin, FaPhone } from "react-icons/fa";
-import { MdEmail, MdLocationOn } from "react-icons/md";
+import { MdEmail, MdLocationOn, MdArrowOutward } from "react-icons/md";
 
 export default function Contact() {
   return (
-    <section
-      id="Contact"
-      className="
-        pt-16
-        pb-10
-        scroll-mt-20
-        border-t
-        border-slate-200/60
-      "
-    >
+    <section id="Contact" className="pt-16 pb-10 scroll-mt-20 border-t border-slate-200/60">
       <SectionTitle>Contact</SectionTitle>
-
-      <Card
-        className="
-          w-full
-          max-w-xl
-          border
-          border-slate-200/70
-          shadow-sm
-        "
-      >
-        {/* ============================================= */}
-        {/* FORM - commented out for now, backend pending */}
-        {/* ============================================= */}
-        {/*
-        <form
-          className="
-            flex
-            flex-col
-            gap-4
-          "
-        >
+      <Card className="w-full max-w-2xl border border-slate-200/70 bg-white shadow-sm">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-[1fr_auto] sm:items-center">
           <div>
-            <label
-              className="
-                mb-1.5
-                block
-                text-xs
-                font-mono
-                text-slate-600
-              "
-            >
-              Name
-            </label>
-
-            <input
-              type="text"
-              placeholder="Your name"
-              className="
-                w-full
-                rounded-lg
-                border
-                border-slate-200
-                bg-transparent
-                px-4
-                py-3
-                text-sm
-                text-slate-900
-                placeholder:text-slate-400
-                outline-none
-                transition
-                focus:border-green-500
-                focus:ring-2
-                focus:ring-green-500/20
-              "
-            />
-          </div>
-
-          <div>
-            <label
-              className="
-                mb-1.5
-                block
-                text-xs
-                font-mono
-                text-slate-600
-              "
-            >
-              Email
-            </label>
-
-            <input
-              type="email"
-              placeholder="your@email.com"
-              className="
-                w-full
-                rounded-lg
-                border
-                border-slate-200
-                bg-transparent
-                px-4
-                py-3
-                text-sm
-                text-slate-900
-                placeholder:text-slate-400
-                outline-none
-                transition
-                focus:border-green-500
-                focus:ring-2
-                focus:ring-green-500/20
-              "
-            />
-          </div>
-
-          <div>
-            <label
-              className="
-                mb-1.5
-                block
-                text-xs
-                font-mono
-                text-slate-600
-              "
-            >
-              Message
-            </label>
-
-            <textarea
-              rows="5"
-              placeholder="Write your message..."
-              className="
-                w-full
-                resize-none
-                rounded-lg
-                border
-                border-slate-200
-                bg-transparent
-                px-4
-                py-3
-                text-sm
-                text-slate-900
-                placeholder:text-slate-400
-                outline-none
-                transition
-                focus:border-green-500
-                focus:ring-2
-                focus:ring-green-500/20
-              "
-            />
-          </div>
-
-          <div
-            className="
-              mt-2
-              flex
-              flex-col
-              gap-4
-              border-t
-              border-slate-200/70
-              pt-4
-
-              sm:flex-row
-              sm:items-center
-              sm:justify-between
-            "
-          >
-            <div
-              className="
-                flex
-                flex-wrap
-                items-center
-                gap-x-4
-                gap-y-3
-              "
-            >
-              
+            
+            <div className="flex flex-col gap-4">
+              <a
                 href="mailto:arulkajanthan904@email.com"
-                className="
-                  flex
-                  items-center
-                  gap-2
-                  text-xs
-                  text-slate-500
-                  transition
-                  hover:text-green-600
-                "
+                className="group flex items-center gap-3"
               >
-                <MdEmail className="text-green-600" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-green-50 text-green-600 transition group-hover:bg-green-100">
+                  <MdEmail size={19} />
+                </div>
+                <div>
+                  <p className="font-mono text-[10px] text-slate-400">EMAIL</p>
+                  <p className="text-sm text-slate-700 transition group-hover:text-green-600">
+                    arulkajanthan904@email.com
+                  </p>
+                </div>
               </a>
-
-              
+              <a
                 href="tel:+94742937703"
-                className="
-                  flex
-                  items-center
-                  gap-2
-                  text-xs
-                  text-slate-500
-                  transition
-                  hover:text-green-600
-                "
+                className="group flex items-center gap-3"
               >
-                <FaPhone className="text-green-600" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-green-50 text-green-600 transition group-hover:bg-green-100">
+                  <FaPhone size={15} />
+                </div>
+                <div>
+                  <p className="font-mono text-[10px] text-slate-400">PHONE</p>
+                  <p className="text-sm text-slate-700 transition group-hover:text-green-600">
+                    +94 74 293 7703
+                  </p>
+                </div>
               </a>
-
-              
-                href="https://www.linkedin.com/in/a-kajanthan/"
-                target="_blank"
-                rel="noreferrer"
-                className="
-                  flex
-                  items-center
-                  gap-2
-                  text-xs
-                  text-slate-500
-                  transition
-                  hover:text-green-600
-                "
-              >
-                <FaLinkedin className="text-green-600" />
-              </a>
-
-              
-                href="https://github.com/kajanthann"
-                target="_blank"
-                rel="noreferrer"
-                className="
-                  flex
-                  items-center
-                  gap-2
-                  text-xs
-                  text-slate-500
-                  transition
-                  hover:text-green-600
-                "
-              >
-                <FaGithub className="text-green-600" />
-              </a>
+              <div className="flex items-center gap-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-green-50 text-green-600">
+                  <MdLocationOn size={19} />
+                </div>
+                <div>
+                  <p className="font-mono text-[10px] text-slate-400">LOCATION</p>
+                  <p className="text-sm text-slate-700">Colombo, Sri Lanka</p>
+                </div>
+              </div>
             </div>
-
-            <button
-              type="submit"
-              className="
-                w-full
-                rounded-lg
-                bg-green-600
-                px-6
-                py-2.5
-                text-sm
-                font-mono
-                text-white
-                transition
-                hover:bg-green-700
-                hover:shadow-lg
-                hover:shadow-green-500/20
-
-                sm:w-auto
-                cursor-pointer
-              "
-            >
-              Send
-            </button>
           </div>
-        </form>
-        */}
-
-        {/* ============================================= */}
-        {/* SIMPLE CONTACT INFO - replace with form above  */}
-        {/* once backend is ready                          */}
-        {/* ============================================= */}
-        <div
-          className="
-            flex
-            flex-col
-            gap-4
-          "
-        >
-          <div className="flex items-center gap-3 text-sm text-slate-700">
-            <MdEmail className="text-lg text-green-600" />
-            arulkajanthan904@email.com
-          </div>
-
-          <div className="flex items-center gap-3 text-sm text-slate-700">
-            <FaPhone className="text-base text-green-600" />
-            +94 74 293 7703
-          </div>
-
-          <div className="flex items-center gap-3 text-sm text-slate-700">
-            <MdLocationOn className="text-lg text-green-600" />
-            Colombo, Sri Lanka
-          </div>
-
-          <div
-            className="
-              mt-2
-              flex
-              items-center
-              gap-5
-            "
-          >
+          <div className="flex flex-row gap-3 border-t border-slate-200 pt-6 sm:flex-col sm:border-l sm:border-t-0 sm:pl-8 sm:pt-0">
             <a
               href="https://www.linkedin.com/in/a-kajanthan/"
               target="_blank"
               rel="noreferrer"
-              className="
-                text-slate-500
-                transition
-                hover:text-green-600
-              "
+              className="group flex items-center gap-3 rounded-lg border border-slate-200 px-3 py-2.5 transition hover:border-green-500/40 hover:bg-green-50/50"
               title="LinkedIn"
+              aria-label="LinkedIn"
             >
-              <FaLinkedin size={20} />
+              <FaLinkedin className="text-slate-500 transition group-hover:text-green-600" size={18} />
             </a>
-
             <a
               href="https://github.com/kajanthann"
               target="_blank"
               rel="noreferrer"
-              className="
-                text-slate-500
-                transition
-                hover:text-green-600
-              "
+              className="group flex items-center gap-3 rounded-lg border border-slate-200 px-3 py-2.5 transition hover:border-green-500/40 hover:bg-green-50/50"
               title="GitHub"
+              aria-label="GitHub"
             >
-              <FaGithub size={20} />
+              <FaGithub className="text-slate-500 transition group-hover:text-green-600" size={18} />
             </a>
           </div>
         </div>
