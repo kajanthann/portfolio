@@ -21,7 +21,7 @@ const SOCIAL_LINKS = [
   {
     label: "Email",
     icon: <MdEmail size={15} />,
-    href: "mailto:arulkajanthan904@email.com",
+    href: "https://mail.google.com/mail/?view=cm&fs=1&to=arulkajanthan904@email.com",
   },
 ];
 
