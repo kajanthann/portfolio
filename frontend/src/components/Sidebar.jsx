@@ -1,5 +1,6 @@
 import React from "react";
 import { profileImage } from "../assets/asset";
+import cvFile from "../assets/KajanthanCV.pdf";
 
 import {
   FaGithub,
@@ -112,7 +113,7 @@ function ProfileCard() {
 
           {/* CV Download */}
           <a
-            href="../assets/KajanthanCV.pdf"
+            href={cvFile}
             download="Arulaiah_Kajanthan_CV.pdf"
             aria-label="Download CV"
             title="Download CV"
@@ -133,7 +134,8 @@ function ProfileCard() {
               hover:border-green-500
               hover:bg-green-50
             "
-          ><span className="text-[10px] font-bold">CV</span>
+          >
+            <span className="text-[10px] font-bold">CV</span>
           </a>
         </div>
       </div>
