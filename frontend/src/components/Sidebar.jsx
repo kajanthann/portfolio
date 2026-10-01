@@ -1,7 +1,10 @@
 import React from "react";
 import { profileImage } from "../assets/asset";
 
-import { FaGithub, FaLinkedinIn } from "react-icons/fa";
+import {
+  FaGithub,
+  FaLinkedinIn,
+} from "react-icons/fa";
 
 import { MdEmail } from "react-icons/md";
 
@@ -64,8 +67,7 @@ function ProfileCard() {
           />
         </div>
 
-        {/* Social Icons */}
-
+        {/* Social Icons + CV */}
         <div
           className="
             absolute
@@ -77,12 +79,15 @@ function ProfileCard() {
             gap-2
           "
         >
+          {/* Social Links */}
           {SOCIAL_LINKS.map((item) => (
             <a
               key={item.label}
               href={item.href}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={item.label}
+              title={item.label}
               className="
                 flex
                 items-center
@@ -104,11 +109,36 @@ function ProfileCard() {
               {item.icon}
             </a>
           ))}
+
+          {/* CV Download */}
+          <a
+            href="../assets/KajanthanCV.pdf"
+            download="Arulaiah_Kajanthan_CV.pdf"
+            aria-label="Download CV"
+            title="Download CV"
+            className="
+              flex
+              items-center
+              justify-center
+              w-8
+              h-8
+              rounded-xl
+              border
+              border-green-500/20
+              bg-white
+              text-green-600
+              shadow-sm
+              transition
+              hover:scale-110
+              hover:border-green-500
+              hover:bg-green-50
+            "
+          ><span className="text-[10px] font-bold">CV</span>
+          </a>
         </div>
       </div>
 
       {/* Name */}
-
       <h1
         className="
           mt-6
@@ -124,7 +154,6 @@ function ProfileCard() {
       </h1>
 
       {/* Role */}
-
       <p
         className="
           mt-2
@@ -138,7 +167,6 @@ function ProfileCard() {
       </p>
 
       {/* Location */}
-
       <p
         className="
           mt-1
@@ -178,7 +206,10 @@ function Sidebar({ active, onNav }) {
           {/* Navigation */}
 
           <nav
-            className=" flex items-center justify-center
+            className="
+              flex
+              items-center
+              justify-center
               px-8
               mt-5
               font-mono
@@ -228,7 +259,9 @@ function Sidebar({ active, onNav }) {
 
                     <span
                       className={
-                        active === item ? "text-green-600" : "text-slate-400"
+                        active === item
+                          ? "text-green-600"
+                          : "text-slate-400"
                       }
                     >
                       {active === item ? "true" : "false"}
