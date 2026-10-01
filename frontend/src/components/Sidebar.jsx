@@ -21,7 +21,7 @@ const SOCIAL_LINKS = [
   {
     label: "Email",
     icon: <MdEmail size={15} />,
-    href: "https://mail.google.com/mail/?view=cm&fs=1&to=arulkajanthan904@email.com",
+    href: "https://mail.google.com/mail/?view=cm&fs=1&to=arulkajanthan904@gmail.com",
   },
 ];
 
@@ -178,10 +178,9 @@ function Sidebar({ active, onNav }) {
           {/* Navigation */}
 
           <nav
-            className="
+            className=" flex items-center justify-center
               px-8
-              mt-2
-              text-sm
+              mt-5
               font-mono
             "
           >

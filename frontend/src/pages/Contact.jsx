@@ -23,7 +23,7 @@ export default function Contact() {
                 <div>
                   <p className="font-mono text-[10px] text-slate-400">EMAIL</p>
                   <p className="text-sm text-slate-700 transition group-hover:text-green-600">
-                    arulkajanthan904@email.com
+                    arulkajanthan904@gmail.com
                   </p>
                 </div>
               </a>
@@ -47,7 +47,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="font-mono text-[10px] text-slate-400">LOCATION</p>
-                  <p className="text-sm text-slate-700">Colombo, Sri Lanka</p>
+                  <p className="text-sm text-slate-700">Jaffna, Sri Lanka</p>
                 </div>
               </div>
             </div>
